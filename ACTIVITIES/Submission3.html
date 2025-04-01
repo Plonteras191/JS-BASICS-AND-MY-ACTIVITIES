@@ -1,0 +1,77 @@
+<html>
+    <body style="font-family: arial;">
+      <div style="width: 250px; 
+      background-color: lightblue;
+      padding: 10PX;">
+
+      <div style="position: relative; top: 0px;">
+        <label style="font-size: 12px;">Loan Amount:</label><br>
+        <input id="in1" style="position: relative; top: 3px;" autofocus>
+      </div>
+
+        <div style="position: relative; top: 14px;">
+            <label style="font-size: 12px;">Months To Pay [3/6/12]:</label><br>
+            <input id="in2" style="position: relative; top: 3px;">
+        </div>
+        <br><br>
+
+        <button id="btn1" style="font-size: 8px; padding: 5px;">
+            Calculate Amortization
+        </button>
+
+        <button id="btn2" style="font-size: 8px; padding: 5px;">
+            Clear
+        </button>
+        <br>
+      </div>
+
+      <div id="out1" style="font-size: 13px; width: 250px; background-color: yellow; padding: 10px;" hidden>
+      </div>
+
+      <script>
+
+        eInput1=document.getElementById("in1");
+        eInput2=document.getElementById("in2");
+        eOutput1=document.getElementById("out1");
+        eButton1=document.getElementById("btn1");
+        eButton2=document.getElementById("btn2");
+
+        function computeAmortization(){
+           let vLoanAmount=parseFloat(eInput1.value);
+           let vMonthsToPay=parseInt(eInput2.value);
+
+           eOutput1.hidden = true;
+           
+           if (isNaN(vLoanAmount) || isNaN(vMonthsToPay)) {  
+            alert("Please fill in all fields."); 
+            return;
+        }
+
+           if (![3, 6, 12].includes(vMonthsToPay)) {  
+            alert("Invalid input! Please enter 3, 6, or 12.");
+            return;
+        }
+           let vInterestRate=10;
+           let vInterestAmount=vLoanAmount*vInterestRate/100*vMonthsToPay/12;
+           let vAmortizationAmount=(vLoanAmount+vInterestAmount)/vMonthsToPay;
+           vAmortizationAmount=vAmortizationAmount.toFixed(2);
+            
+           eOutput1.innerHTML="Amortization: "+vAmortizationAmount;
+           eOutput1.hidden=false;
+        }
+
+        function clear(){
+
+            eInput1.value=""
+            eInput2.value=""
+            eOutput1.hidden=true
+        }
+
+        eButton1.addEventListener("click", computeAmortization)
+        eButton2.addEventListener("click", clear)
+
+
+      </script>
+
+    </body>
+</html>

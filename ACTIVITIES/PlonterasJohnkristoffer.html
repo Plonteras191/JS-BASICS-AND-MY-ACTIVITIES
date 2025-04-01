@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Area Computation</title>
+</head>
+<body style="font-family: Consolas;">
+
+  <label for="shape">Select Shape:</label>
+  <select id="shape" onchange="showShape()">
+    <option value="">None</option>
+    <option value="rectangle">Rectangle</option>
+    <option value="triangle">Triangle</option>
+  </select>
+
+  <div id="rectangle-container" style="display: none; border: 1px solid black; padding: 10px; width: 300px; margin-top: 10px;">
+    <div>
+      <div style="position: relative; top: 0;">
+        Length&nbsp;<input type="text" id="in1" autofocus>
+      </div>
+      <div style="position: relative; top: 5px;">
+        Width&nbsp;&nbsp;&nbsp;<input type="text" id="in2">
+      </div>
+      <div style="position: relative; top: 15px;">
+        Area&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="out1" disabled>
+      </div>
+    </div>
+    <br>
+    <div style="width: 300px; padding: 10px; margin-top: 10px;">
+      <button id="btn1">Calculate Area</button>
+      <button id="btn2">Clear Fields</button>
+    </div>
+  </div>
+
+  <div id="triangle-container" style="display: none; border: 1px solid black; padding: 10px; width: 300px; margin-top: 10px;">
+    <div>
+      <div style="position: relative; top: 0;">
+        Height&nbsp;<input type="text" id="in3" autofocus>
+      </div>
+      <div style="position: relative; top: 5px;">
+        Base&nbsp;&nbsp;&nbsp;<input type="text" id="in4">
+      </div>
+      <div style="position: relative; top: 15px;">
+        Area&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="out2" disabled>
+      </div>
+    </div>
+    <br>
+    <div style="width: 300px; padding: 10px; margin-top: 10px;">
+      <button id="btn3">Calculate Area</button>
+      <button id="btn4">Clear Fields</button>
+    </div>
+  </div>
+
+  <script>
+    function showShape() {
+      let shape = document.getElementById("shape").value;
+      document.getElementById("rectangle-container").style.display = "none";
+      document.getElementById("triangle-container").style.display = "none";
+      if (shape === "rectangle") {
+        document.getElementById("rectangle-container").style.display = "block";
+      } else if (shape === "triangle") {
+        document.getElementById("triangle-container").style.display = "block";
+      }
+    }
+
+    var elementIn1 = document.getElementById("in1");
+    var elementIn2 = document.getElementById("in2");
+    var elementOut1 = document.getElementById("out1");
+    var btn1 = document.getElementById("btn1");
+    var btn2 = document.getElementById("btn2");
+
+    function computeRectangleArea() {
+      var length = parseFloat(elementIn1.value);
+      var width = parseFloat(elementIn2.value);
+      if (isNaN(length) || isNaN(width)) {
+        alert("Please enter valid numbers");
+        return;
+      }
+      if (length <= 0 || width <= 0) {
+        alert("Please enter positive numbers");
+        return;
+      }
+      elementOut1.value = length * width;
+      btn1.disabled = true;
+    }
+
+    function clearRectangle() {
+      elementIn1.value = "";
+      elementIn2.value = "";
+      elementOut1.value = "";
+      btn1.disabled = false;
+      updateClearRectangleButton();
+    }
+
+    function updateClearRectangleButton() {
+      if (elementIn1.value.trim() !== "" && elementIn2.value.trim() !== "") {
+        btn2.disabled = false;
+      } else {
+        btn2.disabled = true;
+      }
+    }
+
+    if (btn1) {
+      btn1.addEventListener("click", computeRectangleArea);
+    }
+    if (btn2) {
+      btn2.addEventListener("click", clearRectangle);
+    }
+    elementIn1.addEventListener("input", updateClearRectangleButton);
+    elementIn2.addEventListener("input", updateClearRectangleButton);
+    updateClearRectangleButton();
+
+    var elementIn3 = document.getElementById("in3");
+    var elementIn4 = document.getElementById("in4");
+    var elementOut2 = document.getElementById("out2");
+    var btn3 = document.getElementById("btn3");
+    var btn4 = document.getElementById("btn4");
+
+    function computeTriangleArea() {
+      var height = parseFloat(elementIn3.value);
+      var base = parseFloat(elementIn4.value);
+      if (isNaN(height) || isNaN(base)) {
+        alert("Please enter valid numbers");
+        return;
+      }
+      if (height <= 0 || base <= 0) {
+        alert("Please enter positive numbers");
+        return;
+      }
+      elementOut2.value = 0.5 * height * base;
+      btn3.disabled = true;
+    }
+
+    function clearTriangle() {
+      elementIn3.value = "";
+      elementIn4.value = "";
+      elementOut2.value = "";
+      btn3.disabled = false;
+      updateClearTriangleButton();
+    }
+
+    function updateClearTriangleButton() {
+      if (elementIn3.value.trim() !== "" && elementIn4.value.trim() !== "") {
+        btn4.disabled = false;
+      } else {
+        btn4.disabled = true;
+      }
+    }
+
+    if (btn3) {
+      btn3.addEventListener("click", computeTriangleArea);
+    }
+    if (btn4) {
+      btn4.addEventListener("click", clearTriangle);
+    }
+    elementIn3.addEventListener("input", updateClearTriangleButton);
+    elementIn4.addEventListener("input", updateClearTriangleButton);
+    updateClearTriangleButton();
+  </script>
+
+</body>
+</html>
