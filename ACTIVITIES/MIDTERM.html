@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Radio Button Color Example</title>
+</head>
+<body>
+  <p>Background Color: </p>
+  <div id="divPanel" style="border: 1px solid black; width: 250px; padding: 10px;">
+    <!-- Radio Buttons -->
+    <input type="radio" id="inputRadio1" name="option" />
+    <label for="inputRadio1">Blue</label>
+
+    <input type="radio" id="inputRadio2" name="option" />
+    <label for="inputRadio2">Red</label>
+
+    <input type="radio" id="inputRadio3" name="option" />
+    <label for="inputRadio3">Yellow</label>
+
+    <p><button id="btnApply" disabled>Apply Selected Color</button></p> 
+  </div>
+</body>
+
+<script>
+var selectedColor = "";
+var divPanel = document.getElementById("divPanel");
+var btnApply = document.getElementById("btnApply");
+var inputRadio1 = document.getElementById("inputRadio1");
+var inputRadio2 = document.getElementById("inputRadio2");
+var inputRadio3 = document.getElementById("inputRadio3");
+
+inputRadio1.addEventListener("click", function(){
+  selectedColor = "blue";
+  btnApply.disabled = false;
+});
+
+inputRadio2.addEventListener("click", function(){
+  selectedColor = "red";
+  btnApply.disabled = false;
+});
+
+inputRadio3.addEventListener("click", function(){
+  selectedColor = "yellow";
+  btnApply.disabled = false;
+});
+
+btnApply.addEventListener("click", function(){
+       if(selectedColor === "blue"){
+         divPanel.style.backgroundColor = "blue";
+       }
+       else if(selectedColor === "red"){
+         divPanel.style.backgroundColor = "red";
+       }
+       else{
+         divPanel.style.backgroundColor = "yellow";
+       }
+});
+</script>
+
+</html>
